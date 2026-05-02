@@ -42,7 +42,7 @@ export const Navbar = ({ language, setLanguage }: { language: string, setLanguag
   }, []);
 
   return (
-    <nav className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[calc(100%-2rem)] max-w-6xl">
+    <nav className="absolute top-4 left-1/2 -translate-x-1/2 z-50 w-[calc(100%-2rem)] max-w-6xl">
       <div className="glass flex items-center justify-between px-5 py-3 rounded-2xl">
         {/* Brand */}
         <div className="flex items-center gap-3">
