@@ -1,0 +1,246 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ═══════════════════════════════════════════════
+   VINEETRA ELITE — "Mother's Touch" Design System
+   Calm · Safe · Warm · Reassuring
+   ═══════════════════════════════════════════════ */
+
+:root {
+  /* 🌿 Core Palette - Light Mode */
+  --color-bg:           #FAF9F6;
+  --color-bg-card:      rgba(250, 249, 246, 0.85);
+  --color-bg-elevated:  rgba(255, 255, 255, 0.95);
+  
+  --color-text:         #3A2B20;
+  --color-text-muted:   #5C4636;
+  --color-text-dim:     #826A5A;
+  
+  --color-rose-soft:    #F2DCDC;
+  --color-sage:         #CFE3D8;
+  
+  --color-accent:       #8B6F5A;
+  --color-accent-light: #A89584;
+  --color-accent-dark:  #5A4636;
+  
+  --color-success:      #A7D7B5;
+  --color-warning:      #EAD9A0;
+  --color-critical:     #E7A9A9;
+  --color-info:         #D6BFA7;
+  
+  --color-rose:         #D6BFA7;
+  --color-rose-muted:   #EADFD3;
+
+  /* Glassmorphism - Light Mode */
+  --glass-bg:           rgba(245, 237, 228, 0.6);
+  --glass-border:       rgba(139, 111, 90, 0.15);
+  --glass-strong-bg:    rgba(250, 249, 246, 0.75);
+  --glass-strong-border:rgba(139, 111, 90, 0.2);
+  
+  --glow-bg:            rgba(234, 223, 211, 0.6);
+  --shadow-card:        0 8px 32px rgba(90, 70, 54, 0.04), 0 2px 8px rgba(90, 70, 54, 0.02);
+  --shadow-strong:      0 12px 48px rgba(90, 70, 54, 0.06), 0 4px 16px rgba(90, 70, 54, 0.03);
+  
+  --fg-dim:             rgba(139, 111, 90, 0.04);
+  --fg-muted:           rgba(139, 111, 90, 0.08);
+  --input-bg:           rgba(255, 255, 255, 0.6);
+  --input-border:       rgba(139, 111, 90, 0.15);
+  --stripe:             rgba(139, 111, 90, 0.02);
+}
+
+.dark {
+  /* 🌙 Core Palette - Dark Mode */
+  --color-bg:           #1E1A17;
+  --color-bg-card:      rgba(42, 36, 32, 0.6);
+  --color-bg-elevated:  rgba(58, 48, 42, 0.6);
+  
+  --color-text:         #EDE6DF;
+  --color-text-muted:   #D6BFA7;
+  --color-text-dim:     #8B6F5A;
+  
+  --color-rose-soft:    rgba(231, 169, 169, 0.1);
+  --color-sage:         rgba(167, 215, 181, 0.1);
+  
+  --color-accent:       #D6BFA7;
+  --color-accent-light: #EADFD3;
+  --color-accent-dark:  #8B6F5A;
+
+  --color-success:      #A7D7B5;
+  --color-warning:      #EAD9A0;
+  --color-critical:     #E7A9A9;
+  --color-info:         #8B6F5A;
+  
+  --color-rose:         #EADFD3;
+  --color-rose-muted:   #D6BFA7;
+
+  /* Glassmorphism - Dark Mode */
+  --glass-bg:           rgba(42, 36, 32, 0.45);
+  --glass-border:       rgba(214, 191, 167, 0.1);
+  --glass-strong-bg:    rgba(58, 48, 42, 0.4);
+  --glass-strong-border:rgba(214, 191, 167, 0.15);
+  
+  --glow-bg:            rgba(214, 191, 167, 0.08);
+  --shadow-card:        0 8px 32px rgba(0, 0, 0, 0.2);
+  --shadow-strong:      0 12px 48px rgba(0, 0, 0, 0.3);
+  
+  --fg-dim:             rgba(214, 191, 167, 0.03);
+  --fg-muted:           rgba(214, 191, 167, 0.06);
+  --input-bg:           rgba(0, 0, 0, 0.2);
+  --input-border:       rgba(214, 191, 167, 0.1);
+  --stripe:             rgba(214, 191, 167, 0.02);
+}
+
+/* ── Base ── */
+@layer base {
+  * { @apply antialiased; }
+
+  html {
+    color-scheme: dark;
+    transition: background-color 0.5s ease, color 0.5s ease;
+  }
+  html.light { color-scheme: light; }
+
+  body {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    transition: background-color 0.5s ease, color 0.5s ease;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 600;
+  }
+
+  ::selection {
+    background: rgba(139, 111, 90, 0.25);
+    color: inherit;
+  }
+}
+
+/* ── Component Utilities ── */
+@layer components {
+  .glass {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 1.25rem;
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    box-shadow: var(--shadow-card);
+    transition: all 0.3s ease;
+  }
+
+  .glass:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-strong);
+  }
+
+  .glass-strong {
+    background: var(--glass-strong-bg);
+    border: 1px solid var(--glass-strong-border);
+    border-radius: 1.5rem;
+    backdrop-filter: blur(40px);
+    -webkit-backdrop-filter: blur(40px);
+    box-shadow: var(--shadow-strong);
+    transition: all 0.3s ease;
+  }
+
+  .mother-glow {
+    box-shadow: var(--shadow-strong), 0 0 80px var(--glow-bg);
+  }
+
+  .text-gradient {
+    background: linear-gradient(135deg, var(--color-accent-light), var(--color-accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Input field theming */
+  .vital-input {
+    background: var(--input-bg);
+    border: 1px solid var(--input-border);
+    color: var(--color-text);
+    border-radius: 1rem;
+    padding: 0.75rem 1rem;
+    font-size: 0.875rem;
+    font-family: 'JetBrains Mono', 'Fira Mono', monospace;
+    outline: none;
+    width: 100%;
+    transition: all 0.3s ease;
+  }
+
+  .vital-input::placeholder { color: var(--color-text-dim); }
+  .vital-input:focus { 
+    border-color: var(--color-accent); 
+    box-shadow: 0 0 0 2px rgba(52, 211, 153, 0.1);
+  }
+
+  .table-row-stripe:nth-child(even) { background: var(--stripe); }
+
+  .pulse-gentle { animation: pulse-soft 4s ease-in-out infinite; }
+}
+
+/* ── Animations ── */
+@keyframes pulse-soft {
+  0%, 100% { opacity: 0.6; transform: scale(0.98); }
+  50%      { opacity: 1; transform: scale(1.02); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50%      { transform: translateY(-10px) scale(1.02); }
+}
+
+.animate-float { animation: float 10s ease-in-out infinite; }
+
+/* ── Utility Classes ── */
+.text-color-text        { color: var(--color-text); }
+.text-color-muted       { color: var(--color-text-muted); }
+.text-color-dim         { color: var(--color-text-dim); }
+.text-color-accent      { color: var(--color-accent); }
+.text-color-accent-light{ color: var(--color-accent-light); }
+.text-color-success     { color: var(--color-success); }
+.text-color-warning     { color: var(--color-warning); }
+.text-color-critical    { color: var(--color-critical); }
+.text-color-info        { color: var(--color-info); }
+
+.bg-color-accent        { background-color: var(--color-accent); }
+.bg-fg-dim              { background: var(--fg-dim); }
+.bg-fg-muted            { background: var(--fg-muted); }
+.border-fg-dim          { border-color: var(--glass-border); }
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: var(--color-text-dim);
+  border-radius: 999px;
+  opacity: 0.5;
+}
+
+/* ══════════════════════════════════════════════
+   LIGHT MODE — Component Fixes
+   ══════════════════════════════════════════════ */
+html.light .text-white   { color: #1E293B !important; }
+html.light .text-text    { color: #1E293B !important; }
+html.light .text-text-muted { color: #475569 !important; }
+html.light .text-text-dim   { color: #94A3B8 !important; }
+html.light .text-accent  { color: #059669 !important; }
+html.light .text-success { color: #16A34A !important; }
+html.light .text-warning { color: #D97706 !important; }
+html.light .text-critical{ color: #DC2626 !important; }
+html.light .text-info    { color: #6366F1 !important; }
+
+html.light .bg-white\/\[0\.04\], html.light .bg-white\/\[0\.03\] { background: rgba(30, 41, 59, 0.03) !important; }
+html.light .bg-white\/\[0\.08\], html.light .bg-white\/\[0\.07\] { background: rgba(30, 41, 59, 0.06) !important; }
+html.light .border-white\/\[0\.04\], html.light .border-white\/\[0\.06\] { border-color: rgba(30, 41, 59, 0.08) !important; }
+
+html.light .hover\:bg-white\/\[0\.08\]:hover { background: rgba(30, 41, 59, 0.08) !important; }
+
+html.light .bg-success\/10 { background: rgba(74, 222, 128, 0.15) !important; }
+html.light .bg-warning\/10 { background: rgba(250, 204, 21, 0.15) !important; }
+html.light .bg-critical\/10 { background: rgba(248, 113, 113, 0.15) !important; }
+
+html.light .font-mono { color: #475569; }
