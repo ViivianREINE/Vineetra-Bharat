@@ -12,7 +12,9 @@ const PLACEHOLDER_PROMPTS = [
   'Meri beti ko raat se khaansi aa rahi hai aur usse saans lene mein dikkat...',
 ];
 
-const API_BASE_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:3002/api';
+const API_BASE_URL = import.meta.env.PROD 
+  ? 'https://vineetra-bharat.onrender.com/api' 
+  : (import.meta.env.VITE_API_URL ?? 'http://localhost:3002/api');
 
 const MOCK_SOAP = (text: string) => `**SUBJECTIVE**
 Patient self-reports: "${text.slice(0, 120)}${text.length > 120 ? '...' : ''}"

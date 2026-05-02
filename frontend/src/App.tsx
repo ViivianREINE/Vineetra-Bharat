@@ -24,7 +24,9 @@ const DEMO_LINES = [
   { speaker: 'Doctor',  text: "Don't worry, we'll do a chest X-ray to rule out anything serious." },
 ];
 
-const API_BASE_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:3002/api';
+const API_BASE_URL = import.meta.env.PROD 
+  ? 'https://vineetra-bharat.onrender.com/api' 
+  : (import.meta.env.VITE_API_URL ?? 'http://localhost:3002/api');
 
 /* ── Build SOAP from transcript ── */
 function buildSOAP(lines: { speaker: string; text: string }[], vitals: any) {
