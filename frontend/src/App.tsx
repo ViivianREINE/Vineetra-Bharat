@@ -90,6 +90,9 @@ function App() {
       setIsListening(false);
       // Capture full session for SOAP generation
       const full = [...sessionTranscriptRef.current];
+      if (speech.interimText && speech.interimText.trim()) {
+        full.unshift({ speaker: 'Live', text: speech.interimText.trim() });
+      }
       if (full.length > 0) {
         setIsGeneratingSOAP(true);
         const textTranscript = full.map(l => `${l.speaker}: ${l.text}`).join('\\n');
