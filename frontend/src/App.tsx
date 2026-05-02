@@ -11,8 +11,9 @@ import { useSpeechRecognition } from './hooks/useSpeechRecognition';
 import { useTheme } from './hooks/useTheme';
 import {
   FileText, Clock, Sparkles, RotateCcw,
-  Languages, Crown, Heart, Users, Mic2, Loader2,
+  Languages, Crown, Heart, Users, Mic2, Loader2, Download
 } from 'lucide-react';
+import { downloadSOAPAsPDF } from './utils/pdf';
 
 const DEMO_LINES = [
   { speaker: 'Patient', text: 'Doctor sahab, mujhe 3 din se khaansi aa rahi hai aur bukhar bhi hai.' },
@@ -394,22 +395,34 @@ function App() {
                       : 'AI-Generated SOAP Note • Vineetra Reasoning Engine'}
                   </p>
                 </div>
-                <button
-                  onClick={() => { 
-                    setSoapFromSession(null); 
-                    setVitals(null);
-                    setAnalysis(null);
-                    setDemoTranscript([]);
-                    setElapsed(0);
-                    sessionTranscriptRef.current = [];
-                    setResetKey(prev => prev + 1);
-                    if (speech.isSupported) speech.clear();
-                  }}
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-medium text-color-muted transition-all duration-200 hover:text-color-text"
-                  style={{ background: 'var(--fg-dim)', border: '1px solid var(--glass-border)' }}>
-                  <RotateCcw className="w-3.5 h-3.5" />
-                  Reset
-                </button>
+                <div className="flex gap-2">
+                  <button
+                    onClick={() => {
+                      const fullText = `**SUBJECTIVE**\n${soap.subj}\n\n**OBJECTIVE**\n${soap.obj_vitals}\n${soap.obj_exam}\n\n**ASSESSMENT**\n${soap.assessment.map((a: string, i: number) => `${i+1}. ${a}`).join('\n')}\n\n**PLAN**\n${soap.plan.map((p: string) => `• ${p}`).join('\n')}`;
+                      downloadSOAPAsPDF(fullText);
+                    }}
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-medium text-color-muted transition-all duration-200 hover:text-color-text"
+                    style={{ background: 'var(--fg-dim)', border: '1px solid var(--glass-border)' }}>
+                    <Download className="w-3.5 h-3.5" />
+                    PDF
+                  </button>
+                  <button
+                    onClick={() => { 
+                      setSoapFromSession(null); 
+                      setVitals(null);
+                      setAnalysis(null);
+                      setDemoTranscript([]);
+                      setElapsed(0);
+                      sessionTranscriptRef.current = [];
+                      setResetKey(prev => prev + 1);
+                      if (speech.isSupported) speech.clear();
+                    }}
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-medium text-color-muted transition-all duration-200 hover:text-color-text"
+                    style={{ background: 'var(--fg-dim)', border: '1px solid var(--glass-border)' }}>
+                    <RotateCcw className="w-3.5 h-3.5" />
+                    Reset
+                  </button>
+                </div>
               </div>
 
               {/* SOAP generation loader */}

@@ -2,8 +2,9 @@ import { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Mic, MicOff, Send, FileText, User, Loader2,
-  CheckCircle2, Clock, Sparkles, ChevronDown, ChevronUp, Copy
+  CheckCircle2, Clock, Sparkles, ChevronDown, ChevronUp, Copy, Download
 } from 'lucide-react';
+import { downloadSOAPAsPDF } from '../utils/pdf';
 
 const PLACEHOLDER_PROMPTS = [
   'mujhe 2 din se bukhar hai aur sar dard bhi ho raha hai...',
@@ -372,6 +373,13 @@ ${Array.isArray(planArr) ? planArr.map((s: string) => `• ${s}`).join('\\n') : 
                     >
                       {copied ? <CheckCircle2 className="w-3.5 h-3.5 text-success" /> : <Copy className="w-3.5 h-3.5" />}
                       {copied ? 'Copied' : 'Copy'}
+                    </button>
+                    <button
+                      onClick={() => downloadSOAPAsPDF(soap)}
+                      className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-white/[0.03] hover:bg-white/[0.07] border border-white/[0.06] text-xs text-text-muted hover:text-white transition-all duration-200"
+                    >
+                      <Download className="w-3.5 h-3.5" />
+                      PDF
                     </button>
                     <button
                       onClick={reset}
