@@ -2,7 +2,7 @@ services:
   - type: web
     name: vineetra-backend
     runtime: node
-    rootDir: vineetra-elite/backend
+    rootDir: backend
     buildCommand: npm install
     startCommand: npm start
     envVars:
