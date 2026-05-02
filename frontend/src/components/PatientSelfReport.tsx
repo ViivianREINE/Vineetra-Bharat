@@ -13,6 +13,30 @@ const PLACEHOLDER_PROMPTS = [
   'Meri beti ko raat se khaansi aa rahi hai aur usse saans lene mein dikkat...',
 ];
 
+const LANGUAGES = [
+  { code: 'en-US', label: 'English (US)' },
+  { code: 'en-GB', label: 'English (UK)' },
+  { code: 'en-IN', label: 'English (India)' },
+  { code: 'hi-IN', label: 'Hinglish / Hindi' },
+  { code: 'bn-IN', label: 'Bengali' },
+  { code: 'te-IN', label: 'Telugu' },
+  { code: 'mr-IN', label: 'Marathi' },
+  { code: 'ta-IN', label: 'Tamil' },
+  { code: 'ur-IN', label: 'Urdu' },
+  { code: 'gu-IN', label: 'Gujarati' },
+  { code: 'kn-IN', label: 'Kannada' },
+  { code: 'or-IN', label: 'Odia' },
+  { code: 'ml-IN', label: 'Malayalam' },
+  { code: 'pa-IN', label: 'Punjabi' },
+  { code: 'as-IN', label: 'Assamese' },
+  { code: 'mai-IN', label: 'Maithili' },
+  { code: 'sat-IN', label: 'Santali' },
+  { code: 'ks-IN', label: 'Kashmiri' },
+  { code: 'ne-IN', label: 'Nepali' },
+  { code: 'kok-IN', label: 'Konkani' },
+  { code: 'sd-IN', label: 'Sindhi' }
+];
+
 const API_BASE_URL = import.meta.env.PROD 
   ? 'https://vineetra-bharat.onrender.com/api' 
   : (import.meta.env.VITE_API_URL ?? 'http://localhost:3002/api');
@@ -200,11 +224,11 @@ ${Array.isArray(planArr) ? planArr.map((s: string) => `• ${s}`).join('\\n') : 
                       onChange={e => setLanguage(e.target.value)}
                       className="bg-white/[0.04] text-text-muted text-xs border border-white/[0.08] rounded-lg px-3 py-1.5 outline-none hover:bg-white/[0.08] cursor-pointer"
                     >
-                      <option className="bg-white dark:bg-slate-900 text-slate-900 dark:text-white" value="en-US">English</option>
-                      <option className="bg-white dark:bg-slate-900 text-slate-900 dark:text-white" value="hi-IN">Hindi / Hinglish</option>
-                      <option className="bg-white dark:bg-slate-900 text-slate-900 dark:text-white" value="ta-IN">Tamil</option>
-                      <option className="bg-white dark:bg-slate-900 text-slate-900 dark:text-white" value="te-IN">Telugu</option>
-                      <option className="bg-white dark:bg-slate-900 text-slate-900 dark:text-white" value="kn-IN">Kannada</option>
+                      {LANGUAGES.map(lang => (
+                        <option key={lang.code} className="bg-white dark:bg-slate-900 text-slate-900 dark:text-white" value={lang.code}>
+                          {lang.label}
+                        </option>
+                      ))}
                     </select>
                   </div>
                 </div>
@@ -256,11 +280,11 @@ ${Array.isArray(planArr) ? planArr.map((s: string) => `• ${s}`).join('\\n') : 
                       onChange={e => setLanguage(e.target.value)}
                       className="bg-transparent text-accent text-[10px] border border-white/[0.08] rounded px-2 py-0.5 outline-none cursor-pointer uppercase tracking-wider"
                     >
-                      <option className="bg-white dark:bg-slate-900 text-slate-900 dark:text-white" value="en-US">English</option>
-                      <option className="bg-white dark:bg-slate-900 text-slate-900 dark:text-white" value="hi-IN">Hinglish</option>
-                      <option className="bg-white dark:bg-slate-900 text-slate-900 dark:text-white" value="ta-IN">Tamil</option>
-                      <option className="bg-white dark:bg-slate-900 text-slate-900 dark:text-white" value="te-IN">Telugu</option>
-                      <option className="bg-white dark:bg-slate-900 text-slate-900 dark:text-white" value="kn-IN">Kannada</option>
+                      {LANGUAGES.map(lang => (
+                        <option key={lang.code} className="bg-white dark:bg-slate-900 text-slate-900 dark:text-white" value={lang.code}>
+                          {lang.label}
+                        </option>
+                      ))}
                     </select>
                   </div>
                   <textarea
