@@ -22,6 +22,7 @@ export const useSpeechRecognition = (language = 'hi-IN'): UseSpeechReturn => {
   const [interimText, setInterimText] = useState('');
   const [isListening, setIsListening] = useState(false);
   const recognitionRef = useRef<any>(null);
+  const shouldListenRef = useRef(false);
 
   const isSupported =
     typeof window !== 'undefined' &&
@@ -45,15 +46,37 @@ export const useSpeechRecognition = (language = 'hi-IN'): UseSpeechReturn => {
 
     recognition.onstart = () => setIsListening(true);
     recognition.onend = () => {
-      setIsListening(false);
-      setInterimText('');
+      if (shouldListenRef.current) {
+        // Flush any unfinalized text before restarting
+        setInterimText(prev => {
+          if (prev.trim()) {
+            const line: TranscriptLine = {
+              id: `flush-${Date.now()}`,
+              speaker: 'Live',
+              text: prev.trim(),
+              final: true,
+            };
+            setTranscript(t => [line, ...t].slice(0, 12));
+          }
+          return '';
+        });
+        
+        try {
+          recognition.start();
+        } catch (err) {
+          // Ignore restart errors
+        }
+      } else {
+        setIsListening(false);
+        setInterimText('');
+      }
     };
 
     recognition.onerror = (e: any) => {
-      // Restart on non-fatal errors
       if (e.error === 'no-speech' || e.error === 'audio-capture') {
-        recognition.start();
+        // Will auto-restart via onend
       } else {
+        shouldListenRef.current = false;
         setIsListening(false);
       }
     };
@@ -82,13 +105,17 @@ export const useSpeechRecognition = (language = 'hi-IN'): UseSpeechReturn => {
       if (interim) setInterimText(interim);
     };
 
-    recognition.start();
+    shouldListenRef.current = true;
+    try {
+      recognition.start();
+    } catch (e) {}
     recognitionRef.current = recognition;
   }, [isSupported, language]);
 
   const stop = useCallback(() => {
+    shouldListenRef.current = false;
     if (recognitionRef.current) {
-      recognitionRef.current.stop();
+      try { recognitionRef.current.stop(); } catch(e) {}
       recognitionRef.current = null;
     }
     setIsListening(false);
@@ -103,8 +130,9 @@ export const useSpeechRecognition = (language = 'hi-IN'): UseSpeechReturn => {
   // Cleanup on unmount
   useEffect(() => {
     return () => {
+      shouldListenRef.current = false;
       if (recognitionRef.current) {
-        recognitionRef.current.stop();
+        try { recognitionRef.current.stop(); } catch(e) {}
       }
     };
   }, []);
