@@ -5,7 +5,7 @@
   "rewrites": [
     {
       "source": "/api/:path*",
-      "destination": "https://your-render-backend.onrender.com/api/:path*"
+      "destination": "https://vineetra-bharat.onrender.com/api/:path*"
     }
   ],
   "env": {
