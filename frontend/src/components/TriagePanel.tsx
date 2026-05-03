@@ -1,6 +1,6 @@
 import { AlertTriangle, Activity, Brain, ArrowRight } from 'lucide-react';
 
-export const TriagePanel = ({ data }: { data: any }) => {
+export const TriagePanel = ({ data, onViewFullReport }: { data: any; onViewFullReport?: () => void }) => {
   const getESIStyle = (level: number) => {
     if (level <= 2) return 'bg-critical/10 text-critical border-critical/20';
     if (level === 3) return 'bg-warning/10 text-warning border-warning/20';
@@ -68,7 +68,10 @@ export const TriagePanel = ({ data }: { data: any }) => {
       </div>
 
       {/* Action */}
-      <button className="w-full mt-4 flex items-center justify-center gap-2 text-xs font-medium text-accent bg-accent/[0.06] hover:bg-accent/[0.12] border border-accent/15 rounded-xl py-2.5 transition-all duration-200">
+      <button
+        onClick={() => onViewFullReport?.()}
+        className="w-full mt-4 flex items-center justify-center gap-2 text-xs font-medium text-accent bg-accent/[0.06] hover:bg-accent/[0.12] border border-accent/15 rounded-xl py-2.5 transition-all duration-200"
+      >
         View Full Triage Report
         <ArrowRight className="w-3.5 h-3.5" />
       </button>

@@ -27,7 +27,7 @@ const DEMO_LINES = [
 
 const API_BASE_URL = import.meta.env.PROD 
   ? 'https://vineetra-bharat.onrender.com/api' 
-  : (import.meta.env.VITE_API_URL ?? 'http://localhost:3002/api');
+  : (import.meta.env.VITE_API_URL ?? 'http://localhost:10001/api');
 
 /* ── Build SOAP from transcript ── */
 function buildSOAP(lines: { speaker: string; text: string }[], vitals: any) {
@@ -81,6 +81,7 @@ function App() {
   const [soapFromSession, setSoapFromSession] = useState<{ subj: string; obj_vitals: string; obj_exam: string; assessment: string[]; plan: string[] } | null>(null);
   const [isGeneratingSOAP, setIsGeneratingSOAP] = useState(false);
   const sessionTranscriptRef = useRef<{ speaker: string; text: string }[]>([]);
+  const triageReportRef = useRef<HTMLDivElement | null>(null);
 
   /* Toggle mic */
   const handleToggle = () => {
@@ -95,7 +96,7 @@ function App() {
       }
       if (full.length > 0) {
         setIsGeneratingSOAP(true);
-        const textTranscript = full.map(l => `${l.speaker}: ${l.text}`).join('\\n');
+        const textTranscript = full.map(l => `${l.speaker}: ${l.text}`).join('\n');
         
         fetch(`${API_BASE_URL}/analyze-clinical`, {
           method: 'POST',
@@ -126,8 +127,8 @@ function App() {
           } else {
              setSoapFromSession({
                ...buildSOAP(full, vitals),
-               assessment: ['Clinical API unreachable. Fallback mode.'],
-               plan: ['Symptomatic treatment.']
+               assessment: [`Clinical API Error: ${data.error || 'Engine Failure'}`],
+               plan: ['Symptomatic treatment suggested as fallback.']
              });
           }
         })
@@ -340,7 +341,10 @@ function App() {
               </div>
             </div>
 
-            <TriagePanel data={analysis} />
+            <TriagePanel
+              data={analysis}
+              onViewFullReport={() => triageReportRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+            />
           </div>
 
           {/* ── RIGHT ── */}
@@ -381,7 +385,7 @@ function App() {
             </div>
 
             {/* SOAP Note */}
-            <div className="glass-strong p-6 sm:p-8 relative overflow-hidden">
+            <div ref={triageReportRef} className="glass-strong p-6 sm:p-8 relative overflow-hidden">
               <div className="absolute top-4 right-4 opacity-[0.03]">
                 <FileText className="w-28 h-28 text-color-text" />
               </div>
