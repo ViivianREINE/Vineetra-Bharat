@@ -8,8 +8,6 @@ services:
     envVars:
       - key: NODE_ENV
         value: production
-      - key: PORT
-        value: 10000
       - key: GEMINI_API_KEY
         sync: false   # Set this manually in Render dashboard
     healthCheckPath: /health

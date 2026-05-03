@@ -66,7 +66,43 @@ Vineetra doesn't just match world-class systems like **Nuance DAX**; it exceeds 
 
 ---
 
-## ❤️ Dedicated to my Mother
+## 🚀 Quick Deploy
+
+Get Vineetra running in production in under 5 minutes:
+
+### Prerequisites
+- GitHub account
+- [Render](https://render.com) account (Backend)
+- [Vercel](https://vercel.com) account (Frontend)
+- Google Gemini API key
+
+### One-Click Deploy
+```bash
+# Clone and setup
+git clone https://github.com/ViivianREINE/Vineetra-Bharat
+cd vineetra-elite
+
+# Configure environment
+cp backend/.env.example backend/.env
+# Edit backend/.env with your GEMINI_API_KEY
+
+# Deploy (Linux/Mac)
+./deploy.sh
+
+# Or deploy manually:
+git add .
+git commit -m "Deploy Vineetra Elite"
+git push origin main
+```
+
+### Services
+- **Frontend**: Vercel (Auto-deploys on git push)
+- **Backend**: Render (Auto-deploys on git push)
+- **Database**: MongoDB Atlas (Optional)
+
+📖 **Full Deployment Guide**: [deployment/DEPLOYMENT_GUIDE.md](deployment/DEPLOYMENT_GUIDE.md)
+
+---
 This system is more than code. It is a tribute to the warmth, safety, and care that only a mother can provide. Built for the 1.3 million doctors in India who serve as the backbone of our nation.
 
 **Made with love by Priyam Parashar**

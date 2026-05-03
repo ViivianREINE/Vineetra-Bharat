@@ -9,8 +9,8 @@ import { GoogleGenerativeAI, HarmCategory, HarmBlockThreshold } from '@google/ge
 dotenv.config();
 
 const app = express();
-const DEFAULT_PORT = 10001;
-const PORT = parseInt(process.env.PORT || '', 10) || DEFAULT_PORT;
+const DEFAULT_PORT = process.env.PORT || 10000;
+const PORT = parseInt(DEFAULT_PORT, 10);
 const MAX_PORT_RETRIES = 10;
 
 // Middleware — Allow all origins (covers Vercel frontend on any domain)
